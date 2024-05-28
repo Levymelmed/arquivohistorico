@@ -3,6 +3,9 @@ package sistema.mre.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "documento")
 @Getter @Setter
@@ -39,20 +42,6 @@ public class DocumentoModel {
     @Column(name = "pratileira", nullable = false, length = 45)
     private String pratileira;
 
-    public DocumentoModel() {}
-
-    public DocumentoModel(Integer numeroVolume, String corImpressao, String sigla, String procedencia, String especie, String mesInicial, String mesFinal, String ano, String bloco, String pratileira) {
-        this.numeroVolume = numeroVolume;
-        this.corImpressao = corImpressao;
-        this.sigla = sigla;
-        this.procedencia = procedencia;
-        this.especie = especie;
-        this.mesInicial = mesInicial;
-        this.mesFinal = mesFinal;
-        this.ano = ano;
-        this.bloco = bloco;
-        this.pratileira = pratileira;
-    }
 
     public Integer getNumeroVolume() {
         return numeroVolume;
