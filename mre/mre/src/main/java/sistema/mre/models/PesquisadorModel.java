@@ -6,13 +6,16 @@ import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "pesquisador")
-@Getter @Setter
+@Table(name = "pesquisador", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "rg"),
+        @UniqueConstraint(columnNames = "cpf"),
+        @UniqueConstraint(columnNames = "email")
+})
 public class PesquisadorModel implements Serializable {
-
-    //@Column
-    //private String instituicao_origem;]
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idPesquisador")
@@ -76,29 +79,4 @@ public class PesquisadorModel implements Serializable {
     @JoinColumn(name = "Agendamento_idAgendamento", nullable = false)
     private AgendamentoModel agendamento;
 
-    public PesquisadorModel() {
-    }
-
-    public PesquisadorModel(Integer idPesquisador, String nome, String rg, String cpf, String estadoCivil, String genero, String nacionalidade, String naturalidade, String cidade, String estado, String bairro, String lote, String logradouro, String cep, String complemento, String email, String dataNascimento, String telefone, String instituicaoOrigem, AgendamentoModel agendamento) {
-        this.idPesquisador = idPesquisador;
-        this.nome = nome;
-        this.rg = rg;
-        this.cpf = cpf;
-        this.estadoCivil = estadoCivil;
-        this.genero = genero;
-        this.nacionalidade = nacionalidade;
-        this.naturalidade = naturalidade;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.bairro = bairro;
-        this.lote = lote;
-        this.logradouro = logradouro;
-        this.cep = cep;
-        this.complemento = complemento;
-        this.email = email;
-        this.dataNascimento = dataNascimento;
-        this.telefone = telefone;
-        this.instituicaoOrigem = instituicaoOrigem;
-        this.agendamento = agendamento;
-    }
 }

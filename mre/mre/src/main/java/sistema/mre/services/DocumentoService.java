@@ -2,6 +2,7 @@ package sistema.mre.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sistema.mre.models.DocumentoModel;
 import sistema.mre.repositories.DocumentoRepository;
 
@@ -30,7 +31,8 @@ public class DocumentoService {
         documentoRepository.deleteById(id);
     }
 
-    public DocumentoModel atualizarDocumento(DocumentoModel documentoModel) {
+    @Transactional
+    public DocumentoModel atualizarDocumento(@org.jetbrains.annotations.NotNull DocumentoModel documentoModel) {
         Optional<DocumentoModel> documentoOptional = findDocumentoById(documentoModel.getNumeroVolume());
         if (documentoOptional.isPresent()) {
             DocumentoModel documentoExistente = documentoOptional.get();
@@ -44,9 +46,9 @@ public class DocumentoService {
             documentoExistente.setBloco(documentoModel.getBloco());
             documentoExistente.setPratileira(documentoModel.getPratileira());
 
-            return salvarDocumento(documentoExistente);
+            return documentoRepository.save(documentoExistente);
         } else {
-            return null;
+            throw new RuntimeException("Documento não encontrado com o número de volume: " + documentoModel.getNumeroVolume());
         }
     }
 }
